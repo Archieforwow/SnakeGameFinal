@@ -9,7 +9,8 @@ public class SnakeGame2EditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
 
-		ExtraModuleNames.AddRange( new string[] { "SnakeGame2" } );
+        ExtraModuleNames.AddRange( new string[] { "SnakeGame2" } );
 	}
 }

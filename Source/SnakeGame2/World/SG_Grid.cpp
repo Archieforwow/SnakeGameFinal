@@ -48,6 +48,7 @@ void ASG_Grid::SetModel(const TSharedPtr<SnakeGame::Grid>& Grid, int32 InCellSiz
 	GridMesh->SetRelativeScale3D(FVector(WorldHeight / Size.X, WorldWidth / Size.Y, 1.0f));
 	GridMesh->SetRelativeLocation(0.5f * FVector(WorldHeight, WorldWidth, -Size.Z));
 
+	//setup material
 	GridMaterial = GridMesh->CreateAndSetMaterialInstanceDynamic(0);
 	if (GridMaterial)
 	{

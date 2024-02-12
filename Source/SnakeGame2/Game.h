@@ -16,20 +16,15 @@ namespace SnakeGame
 	{
 	public:
 		Game(const Settings& settings);
+
 		TSharedPtr<Grid> grid() const { return m_grid; }
-
 		TSharedPtr<Snake> snake() const { return m_snake; }
-
 		TSharedPtr<Food> food() const { return m_food; }
-
 		TSharedPtr<Obstacle> obstacle() const { return m_obstacle; }
 
 		void update(float deltaSeconds, const Input& input);
-
 		uint32 score() const { return m_score; }
-
 		float gameTime() const { return m_gameTime; }
-
 		void subscribeOnGameplayEvent(GameplayEventCallback callback);
 
 	private:
@@ -46,12 +41,14 @@ namespace SnakeGame
 
 		TArray<GameplayEventCallback> m_gameplayEventCallbacks;
 
-		void move(const Input& input);
 		void updateGrid();
 		bool updateTime(float deltaSeconds);
 		bool died() const;
+
+		void move(const Input& input);
 		void generateFood();
 		bool foodTaken() const;
+
 		void generateObstacle();
 		bool obstacleHit() const;
 

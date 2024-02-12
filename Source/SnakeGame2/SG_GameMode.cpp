@@ -88,47 +88,6 @@ void ASG_GameMode::StartPlay()
 	SnakeGame::WorldUtils::SetUIInput(GetWorld(), false);
 }
 
-void ASG_GameMode::SubscribeOnGameEvents()
-{
-	using namespace SnakeGame;
-
-	Game->subscribeOnGameplayEvent([&](GameplayEvent Event)
-		{
-			switch (Event)
-			{
-			case GameplayEvent::GameInProgress:
-				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- GAME IN PROGRESS --------------"));
-				break;
-			case GameplayEvent::GameOver:
-				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- GAME OVER --------------"));
-				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- SCORE: %i --------------"), Game->score());
-				SnakeVisual->Explode();
-				FoodVisual->Hide();
-				ObstacleVisual->Hide();
-				WorldUtils::SetUIInput(GetWorld(), true);
-				break;
-			case GameplayEvent::GameCompleted:
-				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- GAME COMPLETED --------------"));
-				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- SCORE: %i --------------"), Game->score());
-				WorldUtils::SetUIInput(GetWorld(), true);
-				break;
-			case GameplayEvent::FoodTaken:  //
-				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- FOOD TAKEN --------------"));
-				FoodVisual->Explode();
-				break;
-			case GameplayEvent::ObstacleHit:  //
-				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- GAME OVER --------------"));
-				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- SCORE: %i --------------"), Game->score());
-				SnakeVisual->Explode();
-				FoodVisual->Hide();
-				ObstacleVisual->Explode();
-				ObstacleVisual->Hide();
-				WorldUtils::SetUIInput(GetWorld(), true);
-				break;
-			}
-		});
-}
-
 void ASG_GameMode::NextColor()
 {
 	if (ColorsTable)
@@ -251,4 +210,46 @@ SnakeGame::Settings ASG_GameMode::MakeSettings() const
 	GS.snake.defaultSize = SnakeDefaultSize;
 	GS.snake.startPosition = SnakeGame::Grid::center(GridSize.X, GridSize.Y);
 	return GS;
+}
+
+void ASG_GameMode::SubscribeOnGameEvents()
+{
+	using namespace SnakeGame;
+
+	Game->subscribeOnGameplayEvent(
+		[&](GameplayEvent Event)
+		{
+			switch (Event)
+			{
+			case GameplayEvent::GameInProgress:
+				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- GAME IN PROGRESS --------------"));
+				break;
+			case GameplayEvent::GameOver:
+				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- GAME OVER --------------"));
+				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- SCORE: %i --------------"), Game->score());
+				SnakeVisual->Explode();
+				FoodVisual->Hide();
+				ObstacleVisual->Hide();
+				WorldUtils::SetUIInput(GetWorld(), true);
+				break;
+			case GameplayEvent::GameCompleted:
+				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- GAME COMPLETED --------------"));
+				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- SCORE: %i --------------"), Game->score());
+				WorldUtils::SetUIInput(GetWorld(), true);
+				break;
+			case GameplayEvent::FoodTaken:  //
+				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- FOOD TAKEN --------------"));
+				FoodVisual->Explode();
+				break;
+			case GameplayEvent::ObstacleHit:  //
+				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- GAME OVER --------------"));
+				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- SCORE: %i --------------"), Game->score());
+				SnakeVisual->Explode();
+				FoodVisual->Hide();
+				ObstacleVisual->Explode();
+				ObstacleVisual->Hide();
+				WorldUtils::SetUIInput(GetWorld(), true);
+				break;
+			}
+		});
 }
