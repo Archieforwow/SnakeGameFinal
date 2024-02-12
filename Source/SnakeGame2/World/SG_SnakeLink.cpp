@@ -2,8 +2,8 @@
 
 
 #include "World/SG_SnakeLink.h"
-#include "Components\StaticMeshComponent.h"
-#include "SG_WorldUtils.h"
+#include "Components/StaticMeshComponent.h"
+#include "World/SG_WorldUtils.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 

@@ -3,7 +3,7 @@
 
 #include "World/SG_Food.h"
 #include "Components/StaticMeshComponent.h"
-#include "SG_WorldUtils.h"
+#include "World/SG_WorldUtils.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 #include "Components/AudioComponent.h"

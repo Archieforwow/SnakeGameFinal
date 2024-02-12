@@ -2,7 +2,7 @@
 
 
 #include "World/SG_Grid.h"
-#include "Grid.h"
+#include "Core/Grid.h"
 #include "DrawDebugHelpers.h"
 #include "Components\LineBatchComponent.h"
 #include "Components\StaticMeshComponent.h"

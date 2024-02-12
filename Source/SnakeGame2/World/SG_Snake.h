@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Core/Snake.h"
 #include "World/SG_WorldTypes.h"
-#include "Types.h"
+#include "Core/Types.h"
 #include "SG_Snake.generated.h"
 
 class ASG_SnakeLink;

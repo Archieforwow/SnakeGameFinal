@@ -4,7 +4,7 @@
 #include "UI/SG_HUD.h"
 #include "UI/SG_GameplayWidget.h"
 #include "UI/SG_GameOverWidget.h"
-#include "Game.h"
+#include "Core/Game.h"
 #include "Kismet/GameplayStatics.h"
 
 ASG_HUD::ASG_HUD()

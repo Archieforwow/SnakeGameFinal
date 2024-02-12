@@ -1,8 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Types.h"
-#include "Components\StaticMeshComponent.h"
+#include "Core/Types.h"
+#include "Components/StaticMeshComponent.h"
 #include "InputAction.h"
 #include "InputMappingContext.h"
 #include "EnhancedActionKeyMapping.h"

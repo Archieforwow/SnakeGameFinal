@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Types.h"
-#include "World\SG_WorldTypes.h"
+#include "Core/Types.h"
+#include "World/SG_WorldTypes.h"
 #include "SG_Grid.generated.h"
 
 namespace SnakeGame

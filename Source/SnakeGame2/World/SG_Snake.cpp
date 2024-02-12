@@ -2,8 +2,8 @@
 
 #include "World/SG_Snake.h"
 #include "World/SG_SnakeLink.h"
-#include "SG_WorldUtils.h"
-#include "Types.h"
+#include "World/SG_WorldUtils.h"
+#include "Core/Types.h"
 
 ASG_Snake::ASG_Snake()
 {

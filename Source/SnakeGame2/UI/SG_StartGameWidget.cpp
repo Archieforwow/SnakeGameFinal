@@ -6,7 +6,7 @@
 #include "Components/ComboBoxString.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "SG_GameUserSettings.h"
+#include "Framework/SG_GameUserSettings.h"
 #include "Sound/SoundBase.h"
 #include "Components/AudioComponent.h"
 
