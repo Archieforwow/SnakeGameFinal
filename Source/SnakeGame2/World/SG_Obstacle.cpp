@@ -57,7 +57,7 @@ void ASG_Obstacle::Explode()
 {
 	if (UNiagaraComponent* NS = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ExplosionEffect, GetObstacleWorldLocation()))
 	{
-		NS->SetVariableLinearColor("SnakeColor", ObstacleColor);
+		NS->SetVariableLinearColor("ObstacleColor", ObstacleColor);
 	}
 
 	if (ObstacleAudioComponent)

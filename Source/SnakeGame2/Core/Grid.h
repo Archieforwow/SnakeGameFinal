@@ -22,7 +22,7 @@ namespace SnakeGame
 		UE_NODISCARD bool randomEmptyPosition(Position& position) const;
 
 
-		void printDebug();
+		void printDebug() const;
 
 	private:
 		const Dim c_dim;
@@ -33,6 +33,7 @@ namespace SnakeGame
 			{CellType::Wall, {}},
 			{CellType::Food, {}},
 			{CellType::Obstacle, {}},
+			{CellType::Bonus, {}},
 		};
 
 		void initWalls();

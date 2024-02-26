@@ -55,6 +55,9 @@ void ASG_HUD::SetModel(const TSharedPtr<SnakeGame::Game>& InGame)
 				GameOverWidget->SetScore(InGame->score());
 				SetUIGameState(EUIGameState::GameOver);
 				break;
+			case GameplayEvent::BonusTaken: //
+				GameplayWidget->SetScore(InGame->score());
+				break;
 			}
 		});
 }

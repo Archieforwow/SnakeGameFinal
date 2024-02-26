@@ -50,7 +50,8 @@ namespace SnakeGame
 		Wall,
 		Snake,
 		Food,
-		Obstacle
+		Obstacle,
+		Bonus
 	};
 
 	struct Settings
@@ -83,7 +84,8 @@ namespace SnakeGame
 		GameOver,
 		GameCompleted,
 		FoodTaken,
-		ObstacleHit
+		ObstacleHit,
+		BonusTaken
 	};
 
 	using GameplayEventCallback = TFunction<void(GameplayEvent)>;

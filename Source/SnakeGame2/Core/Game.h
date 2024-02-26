@@ -11,6 +11,7 @@ namespace SnakeGame
 	class Snake;
 	class Food;
 	class Obstacle;
+	class Bonus;
 
 	class Game
 	{
@@ -21,6 +22,7 @@ namespace SnakeGame
 		TSharedPtr<Snake> snake() const { return m_snake; }
 		TSharedPtr<Food> food() const { return m_food; }
 		TSharedPtr<Obstacle> obstacle() const { return m_obstacle; }
+		TSharedPtr<Bonus> bonus() const { return m_bonus; }
 
 		void update(float deltaSeconds, const Input& input);
 		uint32 score() const { return m_score; }
@@ -33,6 +35,7 @@ namespace SnakeGame
 		TSharedPtr<Snake> m_snake;
 		TSharedPtr<Food> m_food;
 		TSharedPtr<Obstacle> m_obstacle;
+		TSharedPtr<Bonus> m_bonus;
 
 		float m_moveSeconds{0.0f};
 		bool m_gameOver{false};
@@ -46,11 +49,15 @@ namespace SnakeGame
 		bool died() const;
 
 		void move(const Input& input);
+
 		void generateFood();
 		bool foodTaken() const;
 
 		void generateObstacle();
 		bool obstacleHit() const;
+
+		void generateBonus();
+		bool bonusTaken() const;
 
 		FORCEINLINE void dispatchEvent(GameplayEvent Event);
 	};

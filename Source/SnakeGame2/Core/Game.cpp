@@ -6,6 +6,7 @@
 #include "Core/Snake.h"
 #include "Core/Food.h"
 #include "Core/Obstacle.h"
+#include "Core/Bonus.h"
 #include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogGame, All, All);
@@ -20,9 +21,12 @@ Game::Game(const Settings& settings): c_settings(settings)
 	m_snake = MakeShared<Snake>(settings.snake);
 	m_food = MakeShared<Food>();
 	m_obstacle = MakeShared<Obstacle>();
+	m_bonus = MakeShared<Bonus>();
+
 	updateGrid();
 	generateFood();
 	generateObstacle();
+	generateBonus();
 }
 
 void Game::update(float deltaSeconds, const Input& input)
@@ -51,6 +55,20 @@ void Game::update(float deltaSeconds, const Input& input)
 	{
 		m_gameOver = true;
 		dispatchEvent(GameplayEvent::GameOver);
+		return;
+	}
+
+	if (bonusTaken())
+	{
+		++m_score;
+		++m_score;
+		++m_score;
+		m_snake->increase();
+		m_snake->increase();
+		m_snake->increase();
+		dispatchEvent(GameplayEvent::BonusTaken);
+		generateFood();
+		generateObstacle();
 		return;
 	}
 }
@@ -96,6 +114,16 @@ void Game::generateObstacle()
 	}
 }
 
+void SnakeGame::Game::generateBonus()
+{
+	Position bonusPosition;
+	if (m_grid->randomEmptyPosition(bonusPosition))
+	{
+		m_bonus->setPosition(bonusPosition);
+		m_grid->update(m_bonus->position(), CellType::Bonus);
+	}
+}
+
 bool Game::foodTaken() const
 {
 	return m_grid->hitTest(m_snake->head(), CellType::Food);
@@ -105,6 +133,12 @@ bool Game::obstacleHit() const
 {
 	return m_grid->hitTest(m_snake->head(), CellType::Obstacle);
 }
+
+bool SnakeGame::Game::bonusTaken() const
+{
+	return m_grid->hitTest(m_snake->head(), CellType::Bonus);
+}
+
 
 void Game::updateGrid()
 {

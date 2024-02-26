@@ -35,4 +35,7 @@ struct FSnakeColors : public FTableRowBase
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FLinearColor ObstacleColor;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	FLinearColor BonusColor;
+
 };

@@ -7,6 +7,7 @@
 #include "World/SG_Snake.h"
 #include "World/SG_Food.h"
 #include "World/SG_Obstacle.h"
+#include "World/SG_Bonus.h"
 #include "World/SG_WorldTypes.h"
 #include "Framework/SG_Pawn.h"
 #include "Core/Grid.h"
@@ -46,18 +47,27 @@ void ASG_GameMode::StartPlay()
 
 	// init world snake
 	SnakeVisual = GetWorld()->SpawnActorDeferred<ASG_Snake>(SnakeVisualClass, GridOrigin);
+	check(SnakeVisual);
 	SnakeVisual->SetModel(Game->snake(), CellSize, Game->grid()->dim());
 	SnakeVisual->FinishSpawning(GridOrigin);
 
 	// init world food
 	FoodVisual = GetWorld()->SpawnActorDeferred<ASG_Food>(FoodVisualClass, GridOrigin);
+	check(FoodVisual);
 	FoodVisual->SetModel(Game->food(), CellSize, Game->grid()->dim());
 	FoodVisual->FinishSpawning(GridOrigin);
 
 	// init world obstacle
 	ObstacleVisual = GetWorld()->SpawnActorDeferred<ASG_Obstacle>(ObstacleVisualClass, GridOrigin);
+	check(ObstacleVisual);
 	ObstacleVisual->SetModel(Game->obstacle(), CellSize, Game->grid()->dim());
 	ObstacleVisual->FinishSpawning(GridOrigin);
+
+	// init world bonus
+	BonusVisual = GetWorld()->SpawnActorDeferred<ASG_Bonus>(BonusVisualClass, GridOrigin);
+	check(BonusVisual);
+	BonusVisual->SetModel(Game->bonus(), CellSize, Game->grid()->dim());
+	BonusVisual->FinishSpawning(GridOrigin);
 
 	// set pawn location fitting grid in viewport
 	auto* PC = GetWorld()->GetFirstPlayerController();
@@ -109,7 +119,7 @@ void ASG_GameMode::FindFog()
 
 void ASG_GameMode::UpdateColors()
 {
-	const auto RowName = ColorsTable->GetRowNames()[ColorTableIndex];
+	const FName RowName = ColorsTable->GetRowNames()[ColorTableIndex];
 	const auto* ColorSet = ColorsTable->FindRow<FSnakeColors>(RowName, {});
 	if (ColorSet)
 	{
@@ -117,6 +127,7 @@ void ASG_GameMode::UpdateColors()
 		SnakeVisual->UpdateColors(*ColorSet);
 		FoodVisual->UpdateColors(ColorSet->FoodColor);
 		ObstacleVisual->UpdateColors(ColorSet->ObstacleColor);
+		BonusVisual->UpdateColors(ColorSet->BonusColor);
 
 		// update scene ambient color via fog
 		if (Fog && Fog->GetComponent())
@@ -171,6 +182,7 @@ void ASG_GameMode::OnGameReset(const FInputActionValue& Value)
 		SnakeVisual->SetModel(Game->snake(), CellSize, Game->grid()->dim());
 		FoodVisual->SetModel(Game->food(), CellSize, Game->grid()->dim());
 		ObstacleVisual->SetModel(Game->obstacle(), CellSize, Game->grid()->dim());
+		BonusVisual->SetModel(Game->bonus(), CellSize, Game->grid()->dim());
 		HUD->SetModel(Game);
 		SnakeInput = SnakeGame::Input::Default;
 		NextColor();
@@ -230,6 +242,7 @@ void ASG_GameMode::SubscribeOnGameEvents()
 				SnakeVisual->Explode();
 				FoodVisual->Hide();
 				ObstacleVisual->Hide();
+				BonusVisual->Hide();
 				WorldUtils::SetUIInput(GetWorld(), true);
 				break;
 			case GameplayEvent::GameCompleted:
@@ -248,7 +261,13 @@ void ASG_GameMode::SubscribeOnGameEvents()
 				FoodVisual->Hide();
 				ObstacleVisual->Explode();
 				ObstacleVisual->Hide();
+				BonusVisual->Hide();
 				WorldUtils::SetUIInput(GetWorld(), true);
+				break;
+			case GameplayEvent::BonusTaken:  //
+				UE_LOG(LogSnakeGameMode, Display, TEXT("-------------- BONUS TAKEN --------------"));
+				BonusVisual->Explode();
+				BonusVisual->Hide();
 				break;
 			}
 		});

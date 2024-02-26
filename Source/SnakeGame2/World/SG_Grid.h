@@ -46,5 +46,5 @@ private:
 	int32 WorldWidth;
 	int32 WorldHeight;
 
-	void DrawGrid();
+	void DrawGrid() const;
 };

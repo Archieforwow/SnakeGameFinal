@@ -4,8 +4,8 @@
 #include "World/SG_Grid.h"
 #include "Core/Grid.h"
 #include "DrawDebugHelpers.h"
-#include "Components\LineBatchComponent.h"
-#include "Components\StaticMeshComponent.h"
+#include "Components/LineBatchComponent.h"
+#include "Components/StaticMeshComponent.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogWorldGrid, All, All);
 
@@ -72,7 +72,7 @@ void ASG_Grid::Tick(float DeltaTime)
 	//DrawGrid();
 }
 
-void ASG_Grid::DrawGrid()
+void ASG_Grid::DrawGrid() const
 {
 	for (int32 i = 0; i < GridDim.height + 1; ++i)
 	{
